@@ -1,0 +1,24 @@
+class CircularQueue {
+    int SIZE = 5;
+    int front, rear;
+    int[] items = new int[SIZE];
+
+    CircularQueue() { front = -1; rear = -1; }
+
+    boolean isFull() { return (front == 0 && rear == SIZE - 1) || (front == rear + 1); }
+    boolean isEmpty() { return front == -1; }
+
+    void enQueue(int element) {
+        if (isFull()) return;
+        if (front == -1) front = 0;
+        rear = (rear + 1) % SIZE;
+        items[rear] = element;
+    }
+    int deQueue() {
+        if (isEmpty()) return -1;
+        int element = items[front];
+        if (front == rear) { front = -1; rear = -1; }
+        else front = (front + 1) % SIZE;
+        return element;
+    }
+}

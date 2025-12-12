@@ -1,0 +1,214 @@
+import java.util.Scanner;
+
+class SLLNode {
+    int data;
+    SLLNode next;
+
+    public SLLNode(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+class SingleLinkedList {
+    SLLNode head = null;
+
+    // --- INSERTION OPERATIONS ---
+
+    // 1. Insert at Start
+    public void insertAtStart(int data) {
+        SLLNode newNode = new SLLNode(data);
+        newNode.next = head;
+        head = newNode;
+        System.out.println(data + " inserted at start.");
+    }
+
+    // 2. Insert at End
+    public void insertAtEnd(int data) {
+        SLLNode newNode = new SLLNode(data);
+        if (head == null) {
+            head = newNode;
+        } else {
+            SLLNode temp = head;
+            while (temp.next != null) {
+                temp = temp.next;
+            }
+            temp.next = newNode;
+        }
+        System.out.println(data + " inserted at end.");
+    }
+
+    // 3. Insert at Position
+    public void insertAtPosition(int data, int pos) {
+        if (pos == 1) {
+            insertAtStart(data);
+            return;
+        }
+        SLLNode newNode = new SLLNode(data);
+        SLLNode temp = head;
+        for (int i = 1; i < pos - 1 && temp != null; i++) {
+            temp = temp.next;
+        }
+        if (temp == null) {
+            System.out.println("Position out of bounds.");
+        } else {
+            newNode.next = temp.next;
+            temp.next = newNode;
+            System.out.println(data + " inserted at position " + pos + ".");
+        }
+    }
+
+    // --- DELETION OPERATIONS ---
+
+    // 4. Delete from Start
+    public void deleteAtStart() {
+        if (head == null) {
+            System.out.println("List is empty.");
+            return;
+        }
+        System.out.println("Deleted: " + head.data);
+        head = head.next;
+    }
+
+    // 5. Delete from End
+    public void deleteAtEnd() {
+        if (head == null) {
+            System.out.println("List is empty.");
+            return;
+        }
+        if (head.next == null) {
+            System.out.println("Deleted: " + head.data);
+            head = null;
+            return;
+        }
+        SLLNode temp = head;
+        while (temp.next.next != null) {
+            temp = temp.next;
+        }
+        System.out.println("Deleted: " + temp.next.data);
+        temp.next = null;
+    }
+
+    // 6. Delete from Position
+    public void deleteAtPosition(int pos) {
+        if (head == null) {
+            System.out.println("List is empty.");
+            return;
+        }
+        if (pos == 1) {
+            deleteAtStart();
+            return;
+        }
+        SLLNode temp = head;
+        for (int i = 1; i < pos - 1 && temp != null; i++) {
+            temp = temp.next;
+        }
+        if (temp == null || temp.next == null) {
+            System.out.println("Position out of bounds.");
+        } else {
+            System.out.println("Deleted: " + temp.next.data);
+            temp.next = temp.next.next;
+        }
+    }
+
+    // --- SEARCH AND DISPLAY ---
+
+    // 7. Search
+    public void search(int key) {
+        SLLNode temp = head;
+        int pos = 1;
+        while (temp != null) {
+            if (temp.data == key) {
+                System.out.println("Element " + key + " found at position " + pos);
+                return;
+            }
+            temp = temp.next;
+            pos++;
+        }
+        System.out.println("Element not found.");
+    }
+
+    // 8. Display
+    public void display() {
+        if (head == null) {
+            System.out.println("List is empty.");
+            return;
+        }
+        SLLNode temp = head;
+        System.out.print("Linked List: ");
+        while (temp != null) {
+            System.out.print(temp.data + " -> ");
+            temp = temp.next;
+        }
+        System.out.println("NULL");
+    }
+}
+
+public class LinkedListMenu {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        SingleLinkedList list = new SingleLinkedList();
+        int choice, val, pos;
+
+        while (true) {
+            System.out.println("\n--- Single Linked List Menu ---");
+            System.out.println("1. Insert at Start");
+            System.out.println("2. Insert at End");
+            System.out.println("3. Insert at Position");
+            System.out.println("4. Delete from Start");
+            System.out.println("5. Delete from End");
+            System.out.println("6. Delete from Position");
+            System.out.println("7. Search");
+            System.out.println("8. Display");
+            System.out.println("9. Exit");
+            System.out.print("Enter your choice: ");
+            
+            choice = sc.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter value: ");
+                    val = sc.nextInt();
+                    list.insertAtStart(val);
+                    break;
+                case 2:
+                    System.out.print("Enter value: ");
+                    val = sc.nextInt();
+                    list.insertAtEnd(val);
+                    break;
+                case 3:
+                    System.out.print("Enter value: ");
+                    val = sc.nextInt();
+                    System.out.print("Enter position: ");
+                    pos = sc.nextInt();
+                    list.insertAtPosition(val, pos);
+                    break;
+                case 4:
+                    list.deleteAtStart();
+                    break;
+                case 5:
+                    list.deleteAtEnd();
+                    break;
+                case 6:
+                    System.out.print("Enter position: ");
+                    pos = sc.nextInt();
+                    list.deleteAtPosition(pos);
+                    break;
+                case 7:
+                    System.out.print("Enter value to search: ");
+                    val = sc.nextInt();
+                    list.search(val);
+                    break;
+                case 8:
+                    list.display();
+                    break;
+                case 9:
+                    System.out.println("Exiting...");
+                    sc.close();
+                    return;
+                default:
+                    System.out.println("Invalid choice! Try again.");
+            }
+        }
+    }
+}

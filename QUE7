@@ -1,0 +1,11 @@
+public class TOH {
+    static void solve(int n, char from, char aux, char to) {
+        if (n == 0) return;
+        solve(n - 1, from, to, aux);
+        System.out.println("Move disk " + n + " from " + from + " to " + to);
+        solve(n - 1, aux, from, to);
+    }
+    public static void main(String[] args) {
+        solve(3, 'A', 'B', 'C');
+    }
+}

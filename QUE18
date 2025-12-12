@@ -1,0 +1,32 @@
+class SinglyLinkedList {
+    class Node { int data; Node next; Node(int d) { data = d; next = null; } }
+    Node head;
+
+    void insert(int data) {
+        Node newNode = new Node(data);
+        newNode.next = head;
+        head = newNode;
+    }
+    void display() {
+        Node temp = head;
+        while (temp != null) { System.out.print(temp.data + " "); temp = temp.next; }
+        System.out.println();
+    }
+    // Delete and Search can be implemented similarly
+}
+class DoublyLinkedList {
+    class Node { int data; Node prev; Node next; Node(int d) { data = d; } }
+    Node head;
+
+    void insert(int data) {
+        Node newNode = new Node(data);
+        newNode.next = head;
+        newNode.prev = null;
+        if (head != null) head.prev = newNode;
+        head = newNode;
+    }
+    void display() {
+        Node temp = head;
+        while (temp != null) { System.out.print(temp.data + " "); temp = temp.next; }
+    }
+}

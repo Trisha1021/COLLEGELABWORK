@@ -1,0 +1,28 @@
+public class Occurrences {
+    static int findFirst(int[] arr, int x) {
+        int low = 0, high = arr.length - 1, res = -1;
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            if (arr[mid] > x) high = mid - 1;
+            else if (arr[mid] < x) low = mid + 1;
+            else { res = mid; high = mid - 1; }
+        }
+        return res;
+    }
+
+    static int findLast(int[] arr, int x) {
+        int low = 0, high = arr.length - 1, res = -1;
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            if (arr[mid] > x) high = mid - 1;
+            else if (arr[mid] < x) low = mid + 1;
+            else { res = mid; low = mid + 1; }
+        }
+        return res;
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {1, 2, 2, 2, 3};
+        System.out.println("First: " + findFirst(arr, 2) + " Last: " + findLast(arr, 2));
+    }
+}
